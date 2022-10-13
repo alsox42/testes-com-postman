@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "b17f9fb9-d64d-45e4-afef-9c5d8be740f8",
+		"name": "Teste ServerRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1596182"
+	},
+	"item": [
+		{
+			"name": "Editar usuário",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/usuarios/",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nome\": \"André Oliveira\",\n  \"email\": \"alsox@alsox.com.br\",\n  \"password\": \"teste@teste.com\",\n  \"administrador\": \"true\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/usuarios",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resposta = pm.response.json();",
+							"pm.globals.set(\"token\", resposta.authorization);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"alsox@alsox.com.br\",\n  \"password\": \"teste@teste.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/login",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar mensagem\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{local}}/usuarios/qvV8Bq3qabDEPAeS",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"usuarios",
+						"qvV8Bq3qabDEPAeS"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
